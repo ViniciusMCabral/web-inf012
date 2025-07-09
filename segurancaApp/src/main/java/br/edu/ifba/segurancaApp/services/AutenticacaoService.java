@@ -1,0 +1,23 @@
+package br.edu.ifba.segurancaApp.services;
+
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import br.edu.ifba.segurancaApp.repositories.UsuarioRepository;
+
+@Service
+public class AutenticacaoService implements UserDetailsService {
+
+	private UsuarioRepository usuarioRepository;
+	
+	public AutenticacaoService(UsuarioRepository usuarioRepository) {
+		this.usuarioRepository = usuarioRepository;
+	}
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		return usuarioRepository.findByLogin(username);
+	}
+}
